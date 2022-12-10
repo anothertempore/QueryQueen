@@ -1,7 +1,7 @@
 {
-  "name": "vite-electron-react-builder",
-  "description": "Secure boilerplate for Electron app based on Vite",
-  "version": "1.0.2",
+  "name": "query-queen",
+  "description": "",
+  "version": "0.0.1",
   "private": true,
   "author": {
     "email": "heyavaw@gmail.com",
