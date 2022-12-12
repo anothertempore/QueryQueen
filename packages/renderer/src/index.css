@@ -5,6 +5,7 @@
 :root {
   --background-color: #fff;
   --text-color: #111;
+  height: 100%;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -17,9 +18,13 @@
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+  height: 100%;
 }
 
-.draggable-header {
+#app {
+  height: 100%;
+}
+
+.draggable-area {
   -webkit-app-region: drag;
-  margin: 11px 76px 0;
 }
