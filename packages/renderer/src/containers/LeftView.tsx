@@ -1,16 +1,18 @@
 import {Resizable} from 're-resizable';
 import {memo} from 'react';
+import {DraggableBarLeft} from './DraggableBar';
 
 function LeftView() {
   return (
-    <div className="border-r border-indigo-500">
-      <div className="h-10 text-right flex draggable-area border-b border-indigo-500">Arrow</div>
+    <div className="border-r border-[#e7e3de]">
+      <DraggableBarLeft />
 
-      <div className="flex h-full">
-        <div className="w-[40px] border-r border-indigo-500">DB</div>
+      {/* TODO: gross glass effect */}
+      <div className="flex h-full bg-[#f6f6f6]">
+        <div className="w-[40px] border-r border-[#e7e3de]">DB</div>
         <Resizable
           defaultSize={{
-            width: 200,
+            width: 300,
             height: '100%',
           }}
           minWidth={150}

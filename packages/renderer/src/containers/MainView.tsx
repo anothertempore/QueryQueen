@@ -1,9 +1,15 @@
 import {memo} from 'react';
+import Button from '../components/Button';
+import {DraggableBarRight} from './DraggableBar';
 
 function MainView() {
   return (
     <div className="flex-auto">
-      <div className="h-10 text-right flex draggable-area border-b border-indigo-500">Arrow</div>
+      <DraggableBarRight />
+
+      <div className="text-center m-2">
+        <Button>New Connection</Button>
+      </div>
     </div>
   );
 }
