@@ -4,12 +4,12 @@ import {DraggableBarLeft} from './DraggableBar';
 
 function LeftView() {
   return (
-    <div className="border-r border-[#e7e3de]">
+    <div className="border-r border-gray-200 dark:border-gray-700">
       <DraggableBarLeft />
 
       {/* TODO: gross glass effect */}
-      <div className="flex h-full bg-[#f6f6f6]">
-        <div className="w-[40px] border-r border-[#e7e3de]">DB</div>
+      <div className="flex h-full">
+        <div className="w-[40px] border-r border-gray-200 dark:border-gray-700"></div>
         <Resizable
           defaultSize={{
             width: 300,
@@ -28,7 +28,7 @@ function LeftView() {
             topLeft: false,
           }}
         >
-          <div>Nav</div>
+          <div></div>
         </Resizable>
       </div>
     </div>

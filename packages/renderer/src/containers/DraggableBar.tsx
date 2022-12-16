@@ -1,19 +1,31 @@
 import type {ReactNode} from 'react';
 import {memo} from 'react';
+import Dropdown from '../components/Dropdown';
 
-// TODO:
-// 1. double click to maximize window: https://github.com/electron/electron/issues/20070
-// 2. gross glass effect
+// TODO: gross glass effect
 function DraggableBarWrapper({children}: {children: ReactNode}) {
   return (
-    <div className="h-[2.8rem] draggable-area bg-[#fcf8fd] border-b border-[#e7e3de]">
+    <div
+      className="h-[2.8rem] draggable-area border-b border-gray-200 dark:border-gray-700"
+      onClick={e => {
+        if (e.detail === 2) {
+          window.WINDOW.maximizeWindow();
+        }
+      }}
+    >
       {children}
     </div>
   );
 }
 
 function _DraggableBarLeft() {
-  return <DraggableBarWrapper>{}</DraggableBarWrapper>;
+  return (
+    <DraggableBarWrapper>
+      <div className="h-full ml-[77px] flex items-center text-gray-900">
+        <Dropdown />
+      </div>
+    </DraggableBarWrapper>
+  );
 }
 
 function _DraggableBarRight() {
