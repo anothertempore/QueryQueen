@@ -5,16 +5,27 @@
 :root {
   --background-color: #fff;
   --text-color: #111;
+  height: 100%;
+  overflow: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background-color: rgb(20, 20, 20);
     --text-color: rgb(230, 230, 230);
   }
-}
+} */
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.draggable-area {
+  -webkit-app-region: drag;
 }

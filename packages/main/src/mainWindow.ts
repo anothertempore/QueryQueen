@@ -5,6 +5,14 @@ import {URL} from 'url';
 async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
+    frame: false,
+    titleBarStyle: 'hidden',
+    trafficLightPosition: {x: 10, y: 15},
+    width: 1000,
+    height: 600,
+    minWidth: 1200,
+    minHeight: 800,
+    maximizable: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
