@@ -1,6 +1,5 @@
 import type {ReactNode} from 'react';
 import {memo} from 'react';
-import Dropdown from '../components/Dropdown';
 
 // TODO: gross glass effect
 function DraggableBarWrapper({children}: {children: ReactNode}) {
@@ -21,9 +20,7 @@ function DraggableBarWrapper({children}: {children: ReactNode}) {
 function _DraggableBarLeft() {
   return (
     <DraggableBarWrapper>
-      <div className="h-full ml-[77px] flex items-center text-gray-900">
-        <Dropdown />
-      </div>
+      <div className="h-full ml-[77px] flex items-center text-gray-900">123</div>
     </DraggableBarWrapper>
   );
 }
