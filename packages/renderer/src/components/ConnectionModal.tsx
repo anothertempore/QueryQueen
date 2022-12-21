@@ -70,7 +70,7 @@ function ConnectionModal(props: ConnectionModalProps) {
         status: 'error',
       });
     }
-  }, [getValues]);
+  }, [getValues, toast, trigger]);
 
   const onSave = useCallback(async (value: FormValue) => {
     console.log(value);
