@@ -1,6 +1,6 @@
 import {Button, useDisclosure} from '@chakra-ui/react';
 import {PlusIcon} from '@radix-ui/react-icons';
-import {memo, type ReactNode} from 'react';
+import {memo, ReactNode} from 'react';
 import ConnectionModal from '../components/ConnectionModal';
 
 // TODO: gross glass effect
