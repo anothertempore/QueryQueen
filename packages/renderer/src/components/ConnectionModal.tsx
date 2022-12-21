@@ -14,7 +14,7 @@ import {
   Switch,
 } from '@chakra-ui/react';
 import {memo, useCallback} from 'react';
-import {Controller, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
 export interface FormValue {
   name: string;
@@ -49,7 +49,6 @@ function ConnectionModal(props: ConnectionModalProps) {
     register,
     formState: {errors, isSubmitting},
     reset,
-    control,
   } = useForm<FormValue>();
 
   const onSave = useCallback((value: FormValue) => {
@@ -142,24 +141,14 @@ function ConnectionModal(props: ConnectionModalProps) {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mt={4}>
-              <FormLabel
-                htmlFor="email-alerts"
-                mb="0"
-              >
-                SSL
-              </FormLabel>
-              <Controller
-                name="ssl"
-                control={control}
-                render={({field}: {field: any}) => (
-                  <Switch
-                    id="ssl"
-                    defaultChecked
-                    {...field}
-                    onChange={e => field.onChange(e.target.checked)}
-                  />
-                )}
+            <FormControl
+              mt={4}
+              // isRequired https://github.com/chakra-ui/chakra-ui/issues/7145
+            >
+              <FormLabel htmlFor="ssl">SSL</FormLabel>
+              <Switch
+                id="ssl"
+                {...register('ssl')}
               />
             </FormControl>
 
