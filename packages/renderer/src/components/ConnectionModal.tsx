@@ -1,3 +1,4 @@
+import {testConnection} from '#preload';
 import {
   Button,
   FormControl,
@@ -12,6 +13,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Switch,
+  useToast,
 } from '@chakra-ui/react';
 import {memo, useCallback} from 'react';
 import {useForm} from 'react-hook-form';
@@ -43,15 +45,34 @@ export const DEFAULT_FORM_VALUE = {
 
 function ConnectionModal(props: ConnectionModalProps) {
   const {isOpen, onClose: _onClose} = props;
+  const toast = useToast();
 
   const {
     handleSubmit,
     register,
     formState: {errors, isSubmitting},
     reset,
+    getValues,
+    trigger,
   } = useForm<FormValue>();
 
-  const onSave = useCallback((value: FormValue) => {
+  const onTestConnection = useCallback(async () => {
+    trigger(['name', 'host', 'port', 'databaseName', 'ssl', 'username', 'password']);
+    try {
+      await testConnection(getValues());
+    } catch (e) {
+      toast({
+        title: 'Connection Failed.',
+        description: `${(e as Error).message}`,
+        variant: 'subtle',
+        position: 'bottom-right',
+        isClosable: true,
+        status: 'error',
+      });
+    }
+  }, [getValues]);
+
+  const onSave = useCallback(async (value: FormValue) => {
     console.log(value);
   }, []);
 
@@ -85,7 +106,6 @@ function ConnectionModal(props: ConnectionModalProps) {
                 placeholder="Name"
                 {...register('name', {
                   required: 'This is required',
-                  minLength: {value: 4, message: 'Minimum length should be 4'},
                 })}
               />
               <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
@@ -148,6 +168,7 @@ function ConnectionModal(props: ConnectionModalProps) {
               <FormLabel htmlFor="ssl">SSL</FormLabel>
               <Switch
                 id="ssl"
+                defaultChecked
                 {...register('ssl')}
               />
             </FormControl>
@@ -187,7 +208,12 @@ function ConnectionModal(props: ConnectionModalProps) {
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost">Test Connection</Button>
+            <Button
+              variant="ghost"
+              onClick={onTestConnection}
+            >
+              Test Connection
+            </Button>
             <Button
               colorScheme="blue"
               ml={3}
