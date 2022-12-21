@@ -1,5 +1,7 @@
-import type {ReactNode} from 'react';
-import {memo} from 'react';
+import {Button, useDisclosure} from '@chakra-ui/react';
+import {PlusIcon} from '@radix-ui/react-icons';
+import {memo, type ReactNode} from 'react';
+import ConnectionModal from '../components/ConnectionModal';
 
 // TODO: gross glass effect
 function DraggableBarWrapper({children}: {children: ReactNode}) {
@@ -18,9 +20,26 @@ function DraggableBarWrapper({children}: {children: ReactNode}) {
 }
 
 function _DraggableBarLeft() {
+  const {isOpen, onOpen, onClose} = useDisclosure();
+
   return (
     <DraggableBarWrapper>
-      <div className="h-full ml-[77px] flex items-center text-gray-900">123</div>
+      <div className="h-full ml-[77px] flex items-center">
+        <div className="flex justify-center">
+          <Button
+            onClick={onOpen}
+            size="xs"
+            leftIcon={<PlusIcon />}
+          >
+            New Connection
+          </Button>
+        </div>
+
+        <ConnectionModal
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      </div>
     </DraggableBarWrapper>
   );
 }

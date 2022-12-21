@@ -13,7 +13,8 @@ import {
   ModalOverlay,
   Switch,
 } from '@chakra-ui/react';
-import {memo, useEffect, type BaseSyntheticEvent} from 'react';
+import {memo, useCallback} from 'react';
+import {Controller, useForm} from 'react-hook-form';
 
 export interface FormValue {
   name: string;
@@ -27,11 +28,7 @@ export interface FormValue {
 
 export interface ConnectionModalProps {
   isOpen: boolean;
-  formValue: FormValue;
-  setFormValue: (formValue: FormValue) => void;
   onClose: () => void;
-  onChange: (field: string) => (event: BaseSyntheticEvent) => void;
-  onSave: () => Promise<void> | void;
 }
 
 export const DEFAULT_FORM_VALUE = {
@@ -45,13 +42,24 @@ export const DEFAULT_FORM_VALUE = {
 };
 
 function ConnectionModal(props: ConnectionModalProps) {
-  const {isOpen, onClose, onChange, onSave, formValue, setFormValue} = props;
+  const {isOpen, onClose: _onClose} = props;
 
-  useEffect(() => {
-    if (!isOpen) {
-      setFormValue(DEFAULT_FORM_VALUE);
-    }
-  }, [isOpen]);
+  const {
+    handleSubmit,
+    register,
+    formState: {errors, isSubmitting},
+    reset,
+    control,
+  } = useForm<FormValue>();
+
+  const onSave = useCallback((value: FormValue) => {
+    console.log(value);
+  }, []);
+
+  const onClose = useCallback(() => {
+    reset();
+    _onClose();
+  }, [reset, _onClose]);
 
   return (
     <Modal
@@ -66,101 +74,141 @@ function ConnectionModal(props: ConnectionModalProps) {
         <ModalHeader>New Connection</ModalHeader>
         <ModalCloseButton />
 
-        <ModalBody>
-          <FormControl isRequired>
-            <FormLabel>Name</FormLabel>
-            <Input
-              placeholder="Name"
-              value={formValue.name}
-              onChange={onChange('name')}
-            />
-            {formValue.name == '' && <FormErrorMessage>Email is required.</FormErrorMessage>}
-          </FormControl>
+        <form onSubmit={handleSubmit(onSave)}>
+          <ModalBody>
+            <FormControl
+              isRequired
+              isInvalid={!!errors.name}
+            >
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <Input
+                id="name"
+                placeholder="Name"
+                {...register('name', {
+                  required: 'This is required',
+                  minLength: {value: 4, message: 'Minimum length should be 4'},
+                })}
+              />
+              <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl
-            mt={4}
-            isRequired
-          >
-            <FormLabel>Host</FormLabel>
-            <Input
-              placeholder="Host"
-              value={formValue.host}
-              onChange={onChange('host')}
-            />
-          </FormControl>
+            <FormControl
+              mt={4}
+              isRequired
+              isInvalid={!!errors.host}
+            >
+              <FormLabel htmlFor="host">Host</FormLabel>
+              <Input
+                id="host"
+                placeholder="Host"
+                {...register('host', {
+                  required: 'This is required',
+                })}
+              />
+              <FormErrorMessage>{errors.host && errors.host.message}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl
-            mt={4}
-            isRequired
-          >
-            <FormLabel>Port</FormLabel>
-            <Input
-              placeholder="Port"
-              value={formValue.port}
-              onChange={onChange('port')}
-            />
-          </FormControl>
+            <FormControl
+              mt={4}
+              isRequired
+              isInvalid={!!errors.port}
+            >
+              <FormLabel htmlFor="port">Port</FormLabel>
+              <Input
+                id="port"
+                placeholder="Port"
+                {...register('port', {
+                  required: 'This is required',
+                })}
+              />
+              <FormErrorMessage>{errors.port && errors.port.message}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl
-            mt={4}
-            isRequired
-          >
-            <FormLabel>Database Name</FormLabel>
-            <Input
-              placeholder="Database Name"
-              value={formValue.databaseName}
-              onChange={onChange('databaseName')}
-            />
-          </FormControl>
+            <FormControl
+              mt={4}
+              isRequired
+              isInvalid={!!errors.databaseName}
+            >
+              <FormLabel htmlFor="databaseName">Database Name</FormLabel>
+              <Input
+                id="databaseName"
+                placeholder="Database Name"
+                {...register('databaseName', {
+                  required: 'This is required',
+                })}
+              />
+              <FormErrorMessage>
+                {errors.databaseName && errors.databaseName.message}
+              </FormErrorMessage>
+            </FormControl>
 
-          <FormControl
-            mt={4}
-            isRequired
-          >
-            <FormLabel htmlFor="ssl">SSL</FormLabel>
-            <Switch
-              id="ssl"
-              isChecked={formValue.ssl}
-              onChange={onChange('ssl')}
-            />
-          </FormControl>
+            <FormControl mt={4}>
+              <FormLabel
+                htmlFor="email-alerts"
+                mb="0"
+              >
+                SSL
+              </FormLabel>
+              <Controller
+                name="ssl"
+                control={control}
+                render={({field}: {field: any}) => (
+                  <Switch
+                    id="ssl"
+                    defaultChecked
+                    {...field}
+                    onChange={e => field.onChange(e.target.checked)}
+                  />
+                )}
+              />
+            </FormControl>
 
-          <FormControl
-            mt={4}
-            isRequired
-          >
-            <FormLabel>UserName</FormLabel>
-            <Input
-              placeholder="UserName"
-              value={formValue.username}
-              onChange={onChange('username')}
-            />
-          </FormControl>
+            <FormControl
+              mt={4}
+              isRequired
+              isInvalid={!!errors.username}
+            >
+              <FormLabel htmlFor="username">UserName</FormLabel>
+              <Input
+                id="username"
+                placeholder="UserName"
+                {...register('username', {
+                  required: 'This is required',
+                })}
+              />
+              <FormErrorMessage>{errors.username && errors.username.message}</FormErrorMessage>
+            </FormControl>
 
-          <FormControl
-            mt={4}
-            isRequired
-          >
-            <FormLabel>Password</FormLabel>
-            <Input
-              placeholder="Password"
-              type={'password'}
-              value={formValue.password}
-              onChange={onChange('password')}
-            />
-          </FormControl>
-        </ModalBody>
+            <FormControl
+              mt={4}
+              isRequired
+              isInvalid={!!errors.password}
+            >
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Input
+                id="password"
+                placeholder="Password"
+                type={'password'}
+                {...register('password', {
+                  required: 'This is required',
+                })}
+              />
+              <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
+            </FormControl>
+          </ModalBody>
 
-        <ModalFooter>
-          <Button variant="ghost">Test Connection</Button>
-          <Button
-            colorScheme="blue"
-            ml={3}
-            onClick={onSave}
-          >
-            Save
-          </Button>
-        </ModalFooter>
+          <ModalFooter>
+            <Button variant="ghost">Test Connection</Button>
+            <Button
+              colorScheme="blue"
+              ml={3}
+              type="submit"
+              isLoading={isSubmitting}
+            >
+              Save
+            </Button>
+          </ModalFooter>
+        </form>
       </ModalContent>
     </Modal>
   );
