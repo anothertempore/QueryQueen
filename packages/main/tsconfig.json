@@ -12,7 +12,8 @@
     "paths": {
       "/@/*": ["./src/*"]
     },
-    "importsNotUsedAsValues": "error"
+    "importsNotUsedAsValues": "error",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]

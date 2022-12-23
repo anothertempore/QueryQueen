@@ -18,7 +18,7 @@ import {
 import {memo, useCallback} from 'react';
 import {useForm} from 'react-hook-form';
 
-export interface FormValue {
+export interface ConnectionOptions {
   name: string;
   host: string;
   port: string;
@@ -54,7 +54,7 @@ function ConnectionModal(props: ConnectionModalProps) {
     reset,
     getValues,
     trigger,
-  } = useForm<FormValue>();
+  } = useForm<ConnectionOptions>();
 
   const onTestConnection = useCallback(async () => {
     trigger(['name', 'host', 'port', 'databaseName', 'ssl', 'username', 'password']);
@@ -72,7 +72,7 @@ function ConnectionModal(props: ConnectionModalProps) {
     }
   }, [getValues, toast, trigger]);
 
-  const onSave = useCallback(async (value: FormValue) => {
+  const onSave = useCallback(async (value: ConnectionOptions) => {
     console.log(value);
   }, []);
 

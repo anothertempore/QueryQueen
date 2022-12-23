@@ -38,3 +38,11 @@ export async function testConnection(options: ConnectionOptions) {
     throw new Error(`${(e as Error).message}`);
   }
 }
+
+export async function saveConnection(options: ConnectionOptions) {
+  try {
+    await testConnection(options);
+  } catch (e) {
+    throw new Error(`${(e as Error).message}`);
+  }
+}
