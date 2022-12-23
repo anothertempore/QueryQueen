@@ -1,4 +1,4 @@
-import {testConnection} from '#preload';
+import {testConnection, saveConnection} from '#preload';
 import {
   Button,
   FormControl,
@@ -74,6 +74,7 @@ function ConnectionModal(props: ConnectionModalProps) {
 
   const onSave = useCallback(async (value: ConnectionOptions) => {
     console.log(value);
+    saveConnection(value);
   }, []);
 
   const onClose = useCallback(() => {

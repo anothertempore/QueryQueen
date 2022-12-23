@@ -1,14 +1,5 @@
 import {knex, Knex} from 'knex';
-
-interface ConnectionOptions {
-  name: string;
-  host: string;
-  port: string;
-  databaseName: string;
-  ssl: boolean;
-  username: string;
-  password: string;
-}
+import type {ConnectionOptions} from './type';
 
 export function buildConnection(options: ConnectionOptions) {
   const config: Knex.Config = {
