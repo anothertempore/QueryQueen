@@ -10,8 +10,8 @@ async function createWindow() {
     trafficLightPosition: {x: 10, y: 15},
     width: 1400,
     height: 1000,
-    minWidth: 1200,
-    minHeight: 1000,
+    minWidth: 800,
+    minHeight: 800,
     maximizable: false,
     webPreferences: {
       nodeIntegration: false,

@@ -1,8 +1,9 @@
+import {getActiveConnection} from '#preload';
 import {Button, useDisclosure} from '@chakra-ui/react';
 import {PlusIcon} from '@radix-ui/react-icons';
 import {memo, ReactNode} from 'react';
+import ConnectionMenu from '../components/ConnectionMenu';
 import ConnectionModal from '../components/ConnectionModal';
-import {getActiveConnection} from '#preload';
 
 // TODO: gross glass effect
 function DraggableBarWrapper({children}: {children: ReactNode}) {
@@ -28,7 +29,7 @@ function _DraggableBarLeft() {
     <DraggableBarWrapper>
       <div className="h-full ml-[77px] flex items-center">
         {activeConnection ? (
-          activeConnection.name
+          <ConnectionMenu />
         ) : (
           <div className="flex justify-center">
             <Button
