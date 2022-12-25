@@ -6,4 +6,10 @@ import './window';
 
 export {sha256sum} from './nodeCrypto';
 export {versions} from './versions';
-export {testConnection, saveConnection} from './connection';
+export {
+  testConnection,
+  saveConnection,
+  checkConnection,
+  getAllConnections,
+  getActiveConnection,
+} from './connection';

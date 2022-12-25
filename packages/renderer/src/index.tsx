@@ -7,6 +7,7 @@ import theme from './helpers/theme';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('app') as Element);
+
 root.render(
   <StrictMode>
     <ChakraProvider theme={theme}>

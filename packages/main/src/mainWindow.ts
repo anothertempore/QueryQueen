@@ -8,10 +8,10 @@ async function createWindow() {
     frame: false,
     titleBarStyle: 'hidden',
     trafficLightPosition: {x: 10, y: 15},
-    width: 1000,
-    height: 600,
+    width: 1400,
+    height: 1000,
     minWidth: 1200,
-    minHeight: 800,
+    minHeight: 1000,
     maximizable: false,
     webPreferences: {
       nodeIntegration: false,

@@ -8,6 +8,11 @@ export interface ConnectionOptions {
   password: string;
 }
 
+export interface ConnectionStoreData extends ConnectionOptions {
+  active: boolean;
+}
+
 export interface StoreData {
-  connections: ConnectionOptions[];
+  [key: string]: any;
+  connections: ConnectionStoreData[];
 }

@@ -1,4 +1,4 @@
-import {testConnection, saveConnection} from '#preload';
+import {checkConnection, saveConnection, testConnection} from '#preload';
 import {
   Button,
   FormControl,
@@ -13,10 +13,10 @@ import {
   ModalHeader,
   ModalOverlay,
   Switch,
-  useToast,
 } from '@chakra-ui/react';
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useState} from 'react';
 import {useForm} from 'react-hook-form';
+import {useSubtleToast} from '../helpers/toast';
 
 export interface ConnectionOptions {
   name: string;
@@ -45,7 +45,8 @@ export const DEFAULT_FORM_VALUE = {
 
 function ConnectionModal(props: ConnectionModalProps) {
   const {isOpen, onClose: _onClose} = props;
-  const toast = useToast();
+  const toast = useSubtleToast();
+  const [isTesting, setIsTesting] = useState(false);
 
   const {
     handleSubmit,
@@ -54,33 +55,55 @@ function ConnectionModal(props: ConnectionModalProps) {
     reset,
     getValues,
     trigger,
-  } = useForm<ConnectionOptions>();
-
-  const onTestConnection = useCallback(async () => {
-    trigger(['name', 'host', 'port', 'databaseName', 'ssl', 'username', 'password']);
-    try {
-      await testConnection(getValues());
-    } catch (e) {
-      toast({
-        title: 'Connection Failed.',
-        description: `${(e as Error).message}`,
-        variant: 'subtle',
-        position: 'bottom-right',
-        isClosable: true,
-        status: 'error',
-      });
-    }
-  }, [getValues, toast, trigger]);
-
-  const onSave = useCallback(async (value: ConnectionOptions) => {
-    console.log(value);
-    saveConnection(value);
-  }, []);
+  } = useForm<ConnectionOptions>({mode: 'onChange'});
 
   const onClose = useCallback(() => {
     reset();
     _onClose();
   }, [reset, _onClose]);
+
+  const onTestConnection = useCallback(async () => {
+    try {
+      setIsTesting(true);
+
+      trigger(['name', 'host', 'port', 'databaseName', 'ssl', 'username', 'password']);
+      await testConnection(getValues());
+      toast({
+        title: 'Test connection successfully.',
+        // description: ``,
+        status: 'success',
+      });
+    } catch (e) {
+      toast({
+        title: 'Failed to test connection.',
+        description: `${(e as Error).message}`,
+        status: 'error',
+      });
+    } finally {
+      setIsTesting(false);
+    }
+  }, [getValues, toast, trigger]);
+
+  const onSave = useCallback(
+    async (value: ConnectionOptions) => {
+      try {
+        await saveConnection(value);
+        toast({
+          title: 'Save connection successfully.',
+          // description: ``,
+          status: 'success',
+        });
+        onClose();
+      } catch (e) {
+        toast({
+          title: 'Failed to save connection.',
+          description: `${(e as Error).message}`,
+          status: 'error',
+        });
+      }
+    },
+    [toast, onClose],
+  );
 
   return (
     <Modal
@@ -107,6 +130,7 @@ function ConnectionModal(props: ConnectionModalProps) {
                 placeholder="Name"
                 {...register('name', {
                   required: 'This is required',
+                  validate: checkConnection,
                 })}
               />
               <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
@@ -212,6 +236,7 @@ function ConnectionModal(props: ConnectionModalProps) {
             <Button
               variant="ghost"
               onClick={onTestConnection}
+              isLoading={isTesting}
             >
               Test Connection
             </Button>

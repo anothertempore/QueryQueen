@@ -1,4 +1,5 @@
 import {knex, Knex} from 'knex';
+import {store} from './store';
 import type {ConnectionOptions} from './type';
 
 export function buildConnection(options: ConnectionOptions) {
@@ -30,10 +31,37 @@ export async function testConnection(options: ConnectionOptions) {
   }
 }
 
+export function checkConnection(name: string) {
+  const allConnections = getAllConnections();
+  if (allConnections) {
+    if (allConnections.map(con => con.name).includes(name)) {
+      return 'There is already has the same connection name, please use another one.';
+    }
+    return true;
+  }
+  return true;
+}
+
 export async function saveConnection(options: ConnectionOptions) {
   try {
     await testConnection(options);
+    const allConnections = getAllConnections();
+    store.set(
+      'connections',
+      allConnections
+        ? [...allConnections, {...options, active: true}]
+        : [{...options, active: true}],
+    );
   } catch (e) {
     throw new Error(`${(e as Error).message}`);
   }
+}
+
+export function getAllConnections() {
+  return store.get('connections');
+}
+
+export function getActiveConnection() {
+  const allConnections = getAllConnections();
+  return allConnections?.find(con => con.active);
 }
