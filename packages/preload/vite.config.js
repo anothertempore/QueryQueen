@@ -1,8 +1,8 @@
 import {join} from 'node:path';
 import {preload} from 'unplugin-auto-expose';
 import {chrome} from '../../.electron-vendors.cache.json';
-import importCommonPlugin from '../../scripts/importCommonPlugin';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import importCommonPlugin from '../../plugins/import-common-plugin';
+import {injectAppVersion} from '../../plugins/inject-app-version-plugin.mjs';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
