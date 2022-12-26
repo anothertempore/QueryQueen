@@ -1,7 +1,5 @@
 import {join} from 'node:path';
-import {node} from '../../.electron-vendors.cache.json';
-import importCommonPlugin from '../../scripts/importCommonPlugin';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import {chrome} from '../../.electron-vendors.cache.json';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -14,36 +12,25 @@ const config = {
   mode: process.env.MODE,
   root: PACKAGE_ROOT,
   envDir: PROJECT_ROOT,
-  resolve: {
-    alias: {
-      '/@/': join(PACKAGE_ROOT, 'src') + '/',
-    },
-  },
   build: {
     ssr: true,
     sourcemap: 'inline',
-    target: `node${node}`,
+    target: `chrome${chrome}`,
     outDir: 'dist',
     assetsDir: '.',
     minify: process.env.MODE !== 'development',
     lib: {
       entry: 'src/index.ts',
-      formats: ['cjs'],
+      formats: ['es'],
     },
     rollupOptions: {
       output: {
-        entryFileNames: '[name].cjs',
+        entryFileNames: '[name].js',
       },
     },
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [
-    importCommonPlugin({
-      commonEntry: join(PACKAGE_ROOT, '../common/dist/index.js'),
-    }),
-    injectAppVersion(PROJECT_ROOT),
-  ],
 };
 
 export default config;

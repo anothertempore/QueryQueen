@@ -1,9 +1,6 @@
-export interface WindowStoreData {
-  height: number;
-  width: number;
-}
+import type {Rectangle} from 'electron';
 
 export interface StoreData {
   [key: string]: any;
-  window: WindowStoreData[];
+  window: Rectangle;
 }

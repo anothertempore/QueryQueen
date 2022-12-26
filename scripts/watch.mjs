@@ -88,6 +88,31 @@ function setupPreloadPackageWatcher({ws}) {
   });
 }
 
+function setupCommonPackageWatcher({ws}) {
+  return build({
+    mode,
+    logLevel,
+    configFile: 'packages/common/vite.config.js',
+    build: {
+      /**
+       * Set to {} to enable rollup watcher
+       * @see https://vitejs.dev/config/build-options.html#build-watch
+       */
+      watch: {},
+    },
+    plugins: [
+      {
+        name: 'reload-page-on-common-package-change',
+        writeBundle() {
+          ws.send({
+            type: 'full-reload',
+          });
+        },
+      },
+    ],
+  });
+}
+
 /**
  * Dev server for Renderer package
  * This must be the first,
@@ -100,5 +125,6 @@ const rendererWatchServer = await createServer({
   configFile: 'packages/renderer/vite.config.js',
 }).then(s => s.listen());
 
+await setupCommonPackageWatcher(rendererWatchServer);
 await setupPreloadPackageWatcher(rendererWatchServer);
 await setupMainPackageWatcher(rendererWatchServer);

@@ -1,6 +1,6 @@
 import {knex, Knex} from 'knex';
 import {store} from './store';
-import type {ConnectionOptions} from './type';
+import type {ConnectionOptions, ConnectionStoreData} from './type';
 
 export function buildConnection(options: ConnectionOptions) {
   const config: Knex.Config = {
@@ -57,7 +57,7 @@ export async function saveConnection(options: ConnectionOptions) {
   }
 }
 
-export function getAllConnections() {
+export function getAllConnections(): ConnectionStoreData[] {
   return store.get('connections');
 }
 

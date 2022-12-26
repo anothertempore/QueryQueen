@@ -1,10 +1,6 @@
-import {defineStore, TNanoStore} from 'electron-nano-store';
+import {defineStore} from '#common';
 import type {StoreData} from './type';
 
-let store: TNanoStore<StoreData>;
-
-defineStore<StoreData>('store').then(res => {
-  store = res;
-});
+const store = defineStore<StoreData>('store');
 
 export {store};

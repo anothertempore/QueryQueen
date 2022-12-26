@@ -1,6 +1,7 @@
-import {chrome} from '../../.electron-vendors.cache.json';
-import {preload} from 'unplugin-auto-expose';
 import {join} from 'node:path';
+import {preload} from 'unplugin-auto-expose';
+import {chrome} from '../../.electron-vendors.cache.json';
+import importCommonPlugin from '../../scripts/importCommonPlugin';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
 const PACKAGE_ROOT = __dirname;
@@ -33,7 +34,13 @@ const config = {
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [preload.vite(), injectAppVersion(PROJECT_ROOT)],
+  plugins: [
+    preload.vite(),
+    importCommonPlugin({
+      commonEntry: join(PACKAGE_ROOT, '../common/dist/index.js'),
+    }),
+    injectAppVersion(PROJECT_ROOT),
+  ],
 };
 
 export default config;

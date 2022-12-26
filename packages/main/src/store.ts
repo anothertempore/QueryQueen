@@ -1,11 +1,7 @@
 import {app} from 'electron';
-import {defineStore, resolveStoreFilepath, TNanoStore} from 'electron-nano-store';
+import {defineStore} from '#common';
 import type {StoreData} from './type';
 
-let store: TNanoStore<StoreData>;
-
-defineStore<StoreData>(resolveStoreFilepath('store', app.getPath('userData'))).then(res => {
-  store = res;
-});
+const store = defineStore<StoreData>('store', app.getPath('userData'));
 
 export {store};

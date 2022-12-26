@@ -1,15 +1,21 @@
 import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
+import {store} from './store';
 
 async function createWindow() {
+  const lastPosition = store.get('window');
+
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     frame: false,
     titleBarStyle: 'hidden',
     trafficLightPosition: {x: 10, y: 15},
-    width: 1400,
-    height: 1000,
+    width: lastPosition.width || 1400,
+    height: lastPosition.height || 1000,
+    x: lastPosition.x || undefined,
+    y: lastPosition.y || undefined,
+    center: true,
     minWidth: 800,
     minHeight: 800,
     maximizable: false,
@@ -38,9 +44,9 @@ async function createWindow() {
     }
   });
 
-  // browserWindow.on('close', () => {
-  //   browserWindow.getBounds();
-  // });
+  browserWindow.on('close', () => {
+    store.set('window', browserWindow.getBounds());
+  });
 
   /**
    * URL for main window.
