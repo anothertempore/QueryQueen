@@ -46,11 +46,13 @@ export async function saveConnection(options: ConnectionOptions) {
   try {
     await testConnection(options);
     const allConnections = getAllConnections();
+    const currentConnection = {...options, active: true};
+
     store.set(
       'connections',
       allConnections
-        ? [...allConnections, {...options, active: true}]
-        : [{...options, active: true}],
+        ? [...allConnections.map(con => ({...con, active: false})), currentConnection]
+        : [currentConnection],
     );
   } catch (e) {
     throw new Error(`${(e as Error).message}`);
