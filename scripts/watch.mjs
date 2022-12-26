@@ -88,6 +88,12 @@ function setupPreloadPackageWatcher({ws}) {
   });
 }
 
+/**
+ * Setup watcher for `common` package
+ * On file changed it reload web page.
+ * @param {import('vite').ViteDevServer} watchServer Renderer watch server instance.
+ * Required to access the web socket of the page. By sending the `full-reload` command to the socket, it reloads the web page.
+ */
 function setupCommonPackageWatcher({ws}) {
   return build({
     mode,

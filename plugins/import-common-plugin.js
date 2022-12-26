@@ -2,7 +2,7 @@ import {readFile} from 'fs/promises';
 
 export default function importCommonPlugin(options) {
   const virtualModuleId = '#common';
-  const resolvedVirtualModuleId = '\0' + virtualModuleId;
+  const resolvedVirtualModuleId = '\0' + virtualModuleId.replace('#', '@');
 
   return {
     name: 'import-common',
