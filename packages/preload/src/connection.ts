@@ -63,5 +63,5 @@ export function getAllConnections() {
 
 export function getActiveConnection() {
   const allConnections = getAllConnections();
-  return allConnections.find(con => con.active);
+  return allConnections?.find(con => con.active);
 }

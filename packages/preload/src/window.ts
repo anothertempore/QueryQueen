@@ -2,6 +2,6 @@ import {contextBridge, ipcRenderer} from 'electron';
 
 contextBridge.exposeInMainWorld('WINDOW', {
   maximizeWindow: () => {
-    ipcRenderer.send('maximize-window');
+    ipcRenderer.invoke('maximize-window');
   },
 });

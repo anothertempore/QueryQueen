@@ -38,6 +38,10 @@ async function createWindow() {
     }
   });
 
+  // browserWindow.on('close', () => {
+  //   browserWindow.getBounds();
+  // });
+
   /**
    * URL for main window.
    * Vite dev server for development.
