@@ -17,6 +17,7 @@ import {
 import {memo, useCallback, useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useSubtleToast} from '../helpers/toast';
+import {useConnectionStore} from '../store/connection';
 
 export interface ConnectionOptions {
   name: string;
@@ -47,6 +48,8 @@ function ConnectionModal(props: ConnectionModalProps) {
   const {isOpen, onClose: _onClose} = props;
   const toast = useSubtleToast();
   const [isTesting, setIsTesting] = useState(false);
+
+  const addNewConnection = useConnectionStore(state => state.addNewConnection);
 
   const {
     handleSubmit,
@@ -88,6 +91,8 @@ function ConnectionModal(props: ConnectionModalProps) {
     async (value: ConnectionOptions) => {
       try {
         await saveConnection(value);
+        addNewConnection(value);
+
         toast({
           title: 'Save connection successfully.',
           // description: ``,
@@ -102,7 +107,7 @@ function ConnectionModal(props: ConnectionModalProps) {
         });
       }
     },
-    [toast, onClose],
+    [addNewConnection, toast, onClose],
   );
 
   return (

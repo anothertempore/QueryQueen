@@ -4,7 +4,6 @@
 
 import './window';
 
-export {sha256sum} from './nodeCrypto';
 export {versions} from './versions';
 export {
   testConnection,
@@ -13,3 +12,4 @@ export {
   getAllConnections,
   getActiveConnection,
 } from './connection';
+export type {ConnectionStoreData, ConnectionOptions} from './type';

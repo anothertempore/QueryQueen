@@ -1,9 +1,10 @@
-import {getActiveConnection} from '#preload';
 import {Button, useDisclosure} from '@chakra-ui/react';
 import {PlusIcon} from '@radix-ui/react-icons';
 import {memo, ReactNode} from 'react';
-import ConnectionMenu from '../components/ConnectionMenu';
-import ConnectionModal from '../components/ConnectionModal';
+import ConnectionMenu from '../components/connection-menu';
+import ConnectionModal from '../components/connection-modal';
+import {getActiveConnection} from '../helpers/connection';
+import {useConnectionStore} from '../store/connection';
 
 // TODO: gross glass effect
 function DraggableBarWrapper({children}: {children: ReactNode}) {
@@ -23,11 +24,11 @@ function DraggableBarWrapper({children}: {children: ReactNode}) {
 
 function _DraggableBarLeft() {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const activeConnection = getActiveConnection();
+  const activeConnection = getActiveConnection(useConnectionStore(state => state.allConnections));
 
   return (
     <DraggableBarWrapper>
-      <div className="h-full ml-[77px] flex items-center">
+      <div className="h-full pl-[77px] flex items-center">
         {activeConnection ? (
           <ConnectionMenu />
         ) : (

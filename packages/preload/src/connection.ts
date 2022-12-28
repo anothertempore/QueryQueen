@@ -45,10 +45,10 @@ export function checkConnection(name: string) {
 export async function saveConnection(options: ConnectionOptions) {
   try {
     await testConnection(options);
+
     const allConnections = getAllConnections();
     const currentConnection = {...options, active: true};
-
-    store.set(
+    await store.set(
       'connections',
       allConnections
         ? [...allConnections.map(con => ({...con, active: false})), currentConnection]
@@ -60,10 +60,10 @@ export async function saveConnection(options: ConnectionOptions) {
 }
 
 export function getAllConnections(): ConnectionStoreData[] {
-  return store.get('connections');
+  return store.get('connections') || [];
 }
 
 export function getActiveConnection() {
   const allConnections = getAllConnections();
-  return allConnections?.find(con => con.active);
+  return allConnections.find(con => con.active);
 }
