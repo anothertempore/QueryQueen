@@ -15,7 +15,7 @@ export type TStore<TStoreData extends TStoreBaseData> = {
    * @param value
    * @return `undefined`
    */
-  set<TKey extends keyof TStoreData>(key: TKey, value: TStoreData[TKey]): void;
+  set<TKey extends keyof TStoreData>(key: TKey, value: TStoreData[TKey]): Promise<void>;
 };
 
 /**

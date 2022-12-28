@@ -44,8 +44,8 @@ async function createWindow() {
     }
   });
 
-  browserWindow.on('close', () => {
-    store.set('window', browserWindow.getBounds());
+  browserWindow.on('close', async () => {
+    await store.set('window', browserWindow.getBounds());
   });
 
   /**
