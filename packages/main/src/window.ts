@@ -1,6 +1,6 @@
 import {ipcMain, BrowserWindow} from 'electron';
 
-ipcMain.addListener('maximize-window', () => {
+ipcMain.handle('maximize-window', () => {
   const window = BrowserWindow.getFocusedWindow();
 
   if (window?.isMaximized()) {

@@ -1,6 +1,6 @@
 import {Resizable} from 're-resizable';
 import {memo} from 'react';
-import {DraggableBarLeft} from './DraggableBar';
+import {DraggableBarLeft} from './draggable-bar';
 
 function LeftView() {
   return (

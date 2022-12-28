@@ -7,16 +7,11 @@
     "skipLibCheck": true,
     "strict": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
     "types": ["node"],
     "baseUrl": ".",
-    "paths": {
-      "#preload": ["../preload/src/index"],
-      "/@/*": ["./src/*"]
-    },
-    "lib": ["ESNext", "dom", "dom.iterable"],
-    "importsNotUsedAsValues": "error"
+    "importsNotUsedAsValues": "error",
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "types/**/*.d.ts", "../../types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }

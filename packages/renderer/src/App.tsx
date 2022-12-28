@@ -1,5 +1,5 @@
-import LeftView from './containers/LeftView';
-import MainView from './containers/MainView';
+import LeftView from './containers/left-view';
+import MainView from './containers/main-view';
 
 export default function App() {
   return (
