@@ -1,6 +1,6 @@
 import {Button, useDisclosure} from '@chakra-ui/react';
 import {PlusIcon} from '@radix-ui/react-icons';
-import {memo, ReactNode} from 'react';
+import {memo, type ReactNode} from 'react';
 import ConnectionMenu from '../components/connection-menu';
 import ConnectionModal from '../components/connection-modal';
 import {getActiveConnection} from '../helpers/connection';

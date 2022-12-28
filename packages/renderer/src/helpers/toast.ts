@@ -1,4 +1,4 @@
-import {useToast, UseToastOptions} from '@chakra-ui/react';
+import {useToast, type UseToastOptions} from '@chakra-ui/react';
 
 export const toastOptions: Partial<UseToastOptions> = {
   variant: 'subtle',

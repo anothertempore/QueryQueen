@@ -1,4 +1,4 @@
-import {knex, Knex} from 'knex';
+import {knex, type Knex} from 'knex';
 import {store} from './store';
 import type {ConnectionOptions, ConnectionStoreData} from './type';
 
