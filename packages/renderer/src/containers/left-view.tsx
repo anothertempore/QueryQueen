@@ -1,5 +1,6 @@
 import {Resizable} from 're-resizable';
 import {memo} from 'react';
+import DatabasePanel from '../components/database-panel';
 import {DraggableBarLeft} from './draggable-bar';
 
 function LeftView() {
@@ -9,10 +10,10 @@ function LeftView() {
 
       {/* TODO: gross glass effect */}
       <div className="flex h-full">
-        <div className="w-[40px] border-r border-gray-200 dark:border-gray-700"></div>
+        <DatabasePanel />
         <Resizable
           defaultSize={{
-            width: 300,
+            width: 304,
             height: '100%',
           }}
           minWidth={150}

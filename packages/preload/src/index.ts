@@ -11,5 +11,6 @@ export {
   checkConnection,
   getAllConnections,
   getActiveConnection,
+  getAllDatabases,
 } from './connection';
 export type {ConnectionStoreData, ConnectionOptions} from './type';

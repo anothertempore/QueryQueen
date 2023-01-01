@@ -1,11 +1,13 @@
 import {Button, useDisclosure} from '@chakra-ui/react';
 import {PlusIcon} from '@radix-ui/react-icons';
 import {memo} from 'react';
+// import {getAllDatabases} from '#preload';
 import ConnectionModal from '../components/connection-modal';
 import {DraggableBarRight} from './draggable-bar';
 
 function MainView() {
   const {isOpen, onOpen, onClose} = useDisclosure();
+  // const dbs = getAllDatabases();
 
   return (
     <div className="flex-auto">
