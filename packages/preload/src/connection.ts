@@ -2,6 +2,8 @@ import {knex, type Knex} from 'knex';
 import {store} from './store';
 import type {ConnectionOptions, ConnectionStoreData} from './type';
 
+let knexInstance: Knex;
+
 export function buildConnection(options: ConnectionOptions) {
   const config: Knex.Config = {
     client: 'mysql',
@@ -15,7 +17,8 @@ export function buildConnection(options: ConnectionOptions) {
       ssl: options.ssl,
     },
   };
-  return knex(config);
+  knexInstance = knex(config);
+  return knexInstance; // knex(config);
 }
 
 export async function testConnection(options: ConnectionOptions) {
@@ -66,4 +69,12 @@ export function getAllConnections(): ConnectionStoreData[] {
 export function getActiveConnection() {
   const allConnections = getAllConnections();
   return allConnections.find(con => con.active);
+}
+
+export async function getAllDatabases() {
+  if (!knexInstance) {
+    knexInstance = buildConnection(getActiveConnection() as ConnectionOptions);
+  }
+  const res = await knexInstance.raw('show databases');
+  console.log(res);
 }

@@ -6,11 +6,13 @@ import ConnectionModal from '../components/connection-modal';
 import {getActiveConnection} from '../helpers/connection';
 import {useConnectionStore} from '../store/connection';
 
+const draggableBarStyle = 'h-[3.2rem] draggable-area border-b border-gray-200 dark:border-gray-700';
+
 // TODO: gross glass effect
 function DraggableBarWrapper({children}: {children: ReactNode}) {
   return (
     <div
-      className="h-[2.8rem] draggable-area border-b border-gray-200 dark:border-gray-700"
+      className={draggableBarStyle}
       onClick={e => {
         if (e.detail === 2) {
           window.WINDOW.maximizeWindow();
@@ -28,7 +30,7 @@ function _DraggableBarLeft() {
 
   return (
     <DraggableBarWrapper>
-      <div className="h-full pl-[77px] flex items-center">
+      <div className="h-full pl-[90px] flex items-center">
         {activeConnection ? (
           <ConnectionMenu />
         ) : (

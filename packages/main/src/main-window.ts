@@ -4,13 +4,13 @@ import {URL} from 'url';
 import {store} from './store';
 
 async function createWindow() {
-  const lastPosition = store.get('window');
+  const lastPosition = store.get('window') || {};
 
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     frame: false,
     titleBarStyle: 'hidden',
-    trafficLightPosition: {x: 10, y: 15},
+    trafficLightPosition: {x: 18, y: 18},
     width: lastPosition.width || 1400,
     height: lastPosition.height || 1000,
     x: lastPosition.x || undefined,

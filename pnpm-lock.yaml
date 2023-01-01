@@ -31,6 +31,7 @@ specifiers:
   re-resizable: ^6.9.9
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-focus-lock: ^2.9.2
   react-hook-form: ^7.41.0
   react-router-dom: ^6.4.5
   simple-git-hooks: 2.8.1
@@ -55,6 +56,7 @@ dependencies:
   re-resizable: 6.9.9_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-focus-lock: 2.9.2_kzbn2opkn2327fwg5yzwzya5o4
   react-hook-form: 7.41.0_react@18.2.0
   react-router-dom: 6.4.5_biqbaboplfbrettd7655fr4n2y
   zustand: 4.1.5_react@18.2.0
